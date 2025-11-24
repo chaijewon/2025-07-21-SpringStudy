@@ -30,6 +30,64 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *       1) XML 
  *       2) Annotaion 
  *       3) 자바이용 방식 
+ *       
+ *    스프링 컨테이너 동작 
+ *    1) 스프링 컨테이너 생성 
+ *       ApplicationContext app=
+ *           new ClassPathXmlApplicationCotext("app.xml")
+ *    2) Bean 생성 (클래스 객체 생성) 
+ *       <bean id="a" class="패키지.클래스명">
+ *       
+ *       => map.put("a" , Class.forName("패키지.클래스명"));
+ *       <bean id="b" class="패키지.클래스명">
+ *       => map.put("b" , Class.forName("패키지.클래스명"));
+ *       <bean id="c" class="패키지.클래스명">
+ *       => map.put("c" , Class.forName("패키지.클래스명"));
+ *       
+ *       ------------------
+ *          a   new A()
+ *       ------------------
+ *          b   new B()
+ *       ------------------
+ *          c   new C()   ===> getBean("c") => new C()
+ *       ------------------
+ *       *** 모든 객체는 싱글턴을 이용한다 (저장된 객체 주소가 변경이 안된다) 
+ *       *** getBean()을 호출할때마다 => 객체 생성이 가능 
+ *           scope="singleton" scope="prototype"
+ *    3) DI수행 => setter , 생성자를 이용한 데이터 주입 
+ *    4) 요청 메소드 호출 
+ *       = 객체 생성시 => init-method
+ *       = 객체 소멸시 => destory-method 
+ *    5) 개발자가 객체 활용 
+ *    6) 종료 => System.gc()를 호출 : 메모리 해제 
+ *    
+ *    => 컨테이너 : 객체의 생명 주기 
+ *       1) class 읽기 
+ *       2) 클래스 메모리 할당 
+ *       3) setter 멤버변수 값 주입 
+ *       ---------------------------------Spring 
+ *       4) 개발자가 필요한 메소드 => 활용 
+ *       ---------------------------------
+ *       5) 사용후 메모리 해제
+ *       ---------------------------------Spring
+ *       
+ *     XML => 예전 
+ *     ----------
+ *     Annotaion / 자바로 변경됨 
+ *     
+ *     1) 컨테이너 확인 
+ *     ***2) DI 
+ *     --------------------- 모든 영역의 필수 : core
+ *     ***3) AOP 
+ *     ***4) MVC 
+ *        = ORM (MyBatis , JPA)
+ *               | XML 없이 사용 
+ *               | Annotaion / Annotaion+XML 
+ *                 ========================= Boot
+ *     ***5) Transaction 
+ *     6) Spring Security 
+ *     ------------------------
+ *       
  */
 public class MainClass {
 
@@ -48,6 +106,9 @@ public class MainClass {
 		
 		Sawon sa3=(Sawon)app.getBean("sa3");
 		sa3.print();
+		
+		Sawon sa4=new Sawon();
+		sa4.print();
 	}
 
 }
