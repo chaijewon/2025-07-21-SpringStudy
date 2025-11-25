@@ -9,7 +9,16 @@ public class MainClass {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-        
+		ApplicationContext app=
+				new ClassPathXmlApplicationContext("application-*.xml");
+        MyDAO dao=(MyDAO)app.getBean("dao");//new MyDAO();
+        dao.select();
+        System.out.println("=======");
+        dao.delete();
+        System.out.println("=======");
+        dao.insert();
+        System.out.println("=======");
+        dao.update();
 	}
 
 }
