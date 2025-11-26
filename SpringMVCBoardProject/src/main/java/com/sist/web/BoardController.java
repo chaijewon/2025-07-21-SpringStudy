@@ -55,6 +55,13 @@ public class BoardController {
 	   return "board/detail";
    }
    // 수정 
+   @GetMapping("update.do")
+   public String board_update(int no,Model model)
+   {
+	   BoardVO vo=dao.boardUpdateData(no);
+	   model.addAttribute("vo", vo);
+	   return "board/update";
+   }
    // 삭제 
    
 }

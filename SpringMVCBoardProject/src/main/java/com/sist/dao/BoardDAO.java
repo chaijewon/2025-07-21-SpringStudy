@@ -81,4 +81,27 @@ public class BoardDAO {
 	  }
 	  return res;
   }
+  
+  public BoardVO boardUpdateData(int no)
+  {
+	  return mapper.boardDetail(no);
+  }
+  
+  /*
+   *   @Update("UPDATE springBoard SET "
+		+"name=#{name},subject=#{subject},content=#{content} "
+		+"WHERE no=#{no}")
+       public void boardUpdate(BoardVO vo);
+   */
+  public boolean boardUpdate(BoardVO vo)
+  {
+	  boolean res=false;
+	  String db_pwd=mapper.boardGetPassword(vo.getNo());
+	  if(db_pwd.equals(vo.getPwd()))
+	  {
+		  res=true;
+		  mapper.boardUpdate(vo);
+	  }
+	  return res;
+  }
 }

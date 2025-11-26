@@ -46,7 +46,7 @@
         </tr>
         <tr>
          <td colspan="4" class="text-right">
-          <a href="#" class="btn btn-xs btn-warning">수정</a>
+          <a href="update.do?no=${vo.no }" class="btn btn-xs btn-warning">수정</a>
           <a href="#" class="btn btn-xs btn-success"
            @click="btnClick()"
           >{{isOn?'삭제':'취소'}}</a>
@@ -64,6 +64,32 @@
       </table>
     </div>
   </div>
+  <%--
+          vuex / pinia 
+       1. VueJS 
+          MVVM / 가상돔 
+       2. 생명주기 
+       3. 이벤트 => 디렉티브 
+                  ------
+                  제어문 : 
+                         v-for 
+                         v-if ~ v-else
+                         ---- v-show
+                         
+                  화면 출력 => <태그>{{변수}}</태그> 
+                          => v-text="값"
+                          => v-html="값"
+                          => v-pre="값"
+                  이벤트 처리 
+                          @click 
+                          @mouseover 
+                          @mouseout
+                          @keydown
+                          @keyup 
+                  양방향 통신 
+                          v-model
+                  *** id속성 => ref속성 
+   --%>
   <script>
    let deleteApp=Vue.createApp({
 	  data(){

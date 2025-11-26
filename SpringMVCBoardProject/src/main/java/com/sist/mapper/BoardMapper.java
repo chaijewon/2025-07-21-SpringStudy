@@ -41,4 +41,9 @@ public interface BoardMapper {
   
   @Delete("DELETE FROM springBoard WHERE no=#{no}")
   public  void boardDelete(int no);
+  
+  @Update("UPDATE springBoard SET "
+		+"name=#{name},subject=#{subject},content=#{content} "
+		+"WHERE no=#{no}")
+  public void boardUpdate(BoardVO vo);
 }
