@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-  <h1>${msg }</h1>
+이름:${vo.name }<br>
+성별:${vo.sex }<br>
+주소:${vo.address }<br>
+소개:${vo.content }<br>
 </body>
 </html>
