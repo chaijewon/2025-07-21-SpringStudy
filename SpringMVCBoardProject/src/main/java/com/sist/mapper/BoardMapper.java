@@ -4,6 +4,7 @@ import java.util.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.*;
 public interface BoardMapper {
@@ -23,4 +24,14 @@ public interface BoardMapper {
 		 +"#{content},#{pwd})")
   public void boardInsert(BoardVO vo);
   // 요청 받기 / 응답 보내기 
+  
+  @Update("UPDATE springBoard SET "
+		 +"hit=hit+1 "
+		 +"WHERE no=#{no}")
+  public void hitIncrement(int no);
+  
+  @Select("SELECT no,name,subject,content,hit,"
+		 +"TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday "
+		 +"FROM springBoard WHERE no=#{no}")
+  public BoardVO boardDetail(int no);
 }

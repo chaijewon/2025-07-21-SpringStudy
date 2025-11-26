@@ -20,6 +20,7 @@
   <div class="container">
     <h3 class="text-center">글쓰기</h3>
     <div class="row">
+    <form method="post" action="insert_ok.do">
      <table class="table">
        <tr>
         <th class="text-center" width=20%>이름</th>
@@ -45,7 +46,16 @@
          <input type=password name=pwd size=10 class="input-sm">
         </td>
        </tr>
+       <tr>
+         <td colspan="2" class="text-center">
+          <button class="btn-sm btn-primary" type="submit">글쓰기</button>
+          <button class="btn-sm btn-primary" type="button"
+           onclick="javascript:history.back()"
+          >취소</button>
+         </td>
+       </tr>
      </table>
+     </form>
     </div>
   </div>
 </body>
