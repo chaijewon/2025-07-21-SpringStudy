@@ -56,4 +56,5 @@ public class BoardController {
    }
    // 수정 
    // 삭제 
+   
 }

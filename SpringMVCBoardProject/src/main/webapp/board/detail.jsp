@@ -15,6 +15,8 @@
   width:800px;
 }
 </style>
+<script type="text/javascript" src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
   <div class="container">
@@ -45,12 +47,67 @@
         <tr>
          <td colspan="4" class="text-right">
           <a href="#" class="btn btn-xs btn-warning">수정</a>
-          <a href="#" class="btn btn-xs btn-success">삭제</a>
+          <a href="#" class="btn btn-xs btn-success"
+           @click="btnClick()"
+          >{{isOn?'삭제':'취소'}}</a>
           <a href="list.do" class="btn btn-xs btn-info">목록</a>
          </td>
+        </tr>
+        <tr v-show="bShow">
+          <td colspan="4" class="text-right">
+           비밀번호:<input type="password" name=pwd size=10
+                  class="input-sm" v-model="pwd" ref="pwdRef">
+            <button class="btn-sm btn-danger" 
+            type=button v-on:click="deleteBtn">삭제</button>
+          </td>
         </tr>
       </table>
     </div>
   </div>
+  <script>
+   let deleteApp=Vue.createApp({
+	  data(){
+		  return {
+			  bShow:false,
+			  msg:'삭제',
+			  isOn:true,
+			  pwd:'',
+			  no:${param.no}
+		  }
+	  },
+	  methods:{
+		  btnClick(){
+			  this.isOn=!this.isOn
+			  this.bShow=!this.bShow
+		  },
+		  deleteBtn(){
+			  if(this.pwd==='')
+			  {
+				  this.$refs.pwdRef.focus();
+				  return
+			  }
+			  // 서버로 데이터 전송 
+			  axios.get('delete.do',{
+				  params:{
+					  no:this.no,
+					  pwd:this.pwd
+				  }
+			  }).then(result=>{
+				  console.log(result)
+				  if(result.data==="yes")
+				  {
+					  window.location.href="list.do"
+				  }
+				  else
+				  {
+					  alert("비밀번호가 틀립니다!!")
+					  this.pwd=""
+					  this.$refs.pwdRef.focus()
+				  }
+			  })
+		  }
+	  }
+   }).mount(".container")
+  </script>
 </body>
 </html>
