@@ -49,18 +49,18 @@
         <th class="text-center">직위</th>
         <th class="text-center">급여</th>
       </tr>
-      <tr v-for="vo in sawon">
+      <tr v-for="vo in sabunOne">
         <td class="text-center">{{vo.sabun}}</td>
         <td class="text-center">{{vo.name}}</td>
         <td class="text-center">{{vo.day}}</td>
         <td class="text-center">{{vo.job}}</td>
-        <td class="text-center" v-text="vo.sal"></td>
+        <td class="text-center">{{vo.sal}}</td>
       </tr>
      </table>
     </div>
   </div>
   <script>
-   lel a=Vue.createApp({
+   let a=Vue.createApp({
 	   data(){
 		   return {
 			   sawon:[
@@ -71,7 +71,12 @@
 				   {sabun:5,name:'홍길동5',day:'2025-11-27',job:'사원',sal:3000}
 			   ]
 		   }
-	   }
+	   },
+	   computed: {
+		   sabunOne() {
+		     return this.sawon.filter(vo => vo.sabun === 1);
+		   }
+		 }
    }).mount('.container')
   </script>
 </body>
