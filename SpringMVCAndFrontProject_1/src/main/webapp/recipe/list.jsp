@@ -43,16 +43,17 @@ p {
     <div class="row text-center" style="margin-top: 20px">
      <ul class="pagination">
        <c:if test="${startPage>1 }">
-        <li><a href="#">&lt;</a></li>
+        <li><a href="list.do?page=${startPage-1 }">&lt;</a></li>
        </c:if>
        
        <c:forEach var="i" begin="${startPage }" end="${endPage }">
-         <li><a href="#">${i }</a></li>
+         <li ${i==curpage?"class=active":"" }>
+           <a href="list.do?page=${i }">${i }</a></li>
        </c:forEach>
       
        
        <c:if test="${endPage<totalpage }">
-         <li><a href="#">&gt;</a></li>
+         <li><a href="list.do?page=${endPage+1 }">&gt;</a></li>
        </c:if>
      </ul>
     </div>
