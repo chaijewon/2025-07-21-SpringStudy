@@ -21,6 +21,9 @@ p {
  white-space: nowrap;
  text-overflow: ellipsis;
 }
+.link{
+ cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -42,14 +45,14 @@ p {
     <div class="row text-center" style="margin-top: 20px">
      <ul class="pagination">
        
-         <li v-if="startPage>1"><a class="link">&lt;</a></li>
+         <li v-if="startPage>1"><a class="link" @click="prev(startPage-1)">&lt;</a></li>
  
          <li v-for="i in range(startPage,endPage)" 
              :class="i==curpage?'active':''">
-           <a class="link">{{i}}</a>
+           <a class="link" @click="pageChange(i)">{{i}}</a>
          </li>
   
-         <li v-if="endPage<totalpage"><a class="link">&gt;</a></li>
+         <li v-if="endPage<totalpage"><a class="link" @click="next(endPage+1)">&gt;</a></li>
        
      </ul>
     </div>
@@ -73,18 +76,7 @@ p {
 	      map.put("list", list);
 	   */
 	   mounted(){
-		 axios.get('list_vue.do',{
-			 params:{
-				 page:this.curpage
-			 }
-		 }).then(response=>{
-			 console.log(response.data)
-			 this.recipe_list=response.data.list
-			 this.curpage=response.data.curpage
-			 this.totalpage=response.data.totalpage
-			 this.startPage=response.data.startPage
-			 this.endPage=response.date.endPage
-		 })
+		 this.dataRecv()
 	   },
 	   methods:{
 		 range(start,end){
@@ -96,6 +88,32 @@ p {
 				 start++
 			 }
 			 return arr
+		 },
+		 prev(page){
+			 this.curpage=page
+			 this.dataRecv()
+		 },
+		 next(page){
+			 this.curpage=page
+			 this.dataRecv()
+		 },
+		 pageChange(page){
+			 this.curpage=page
+			 this.dataRecv()
+		 },
+		 dataRecv(){
+			 axios.get('list_vue.do',{
+				 params:{
+					 page:this.curpage
+				 }
+			 }).then(response=>{
+				 console.log(response.data)
+				 this.recipe_list=response.data.list
+				 this.curpage=response.data.curpage
+				 this.totalpage=response.data.totalpage
+				 this.startPage=response.data.startPage
+				 this.endPage=response.date.endPage
+			 })
 		 }
 	   }
    }).mount(".container")
