@@ -26,14 +26,14 @@ p {
 <body>
   <div class="container">
     <div class="row">
-       <div class="col-md-3">
+       <div class="col-md-3" v-for="vo in recipe_list">
 		    <div class="thumbnail">
 		      <a href="#">
-		        <img src="${vo.poster }" style="width:230px;height: 120px"
-		          title="${vo.title }"
+		        <img :src="vo.poster" style="width:230px;height: 120px"
+		          :title="vo.title"
 		        >
 		        <div class="caption">
-		          <p>${vo.chef}</p>
+		          <p>{{vo.chef}}</p>
 		        </div>
 		      </a>
 		    </div>
@@ -42,17 +42,63 @@ p {
     <div class="row text-center" style="margin-top: 20px">
      <ul class="pagination">
        
-         <li><a href="list.do?page=${startPage-1 }">&lt;</a></li>
+         <li v-if="startPage>1"><a class="link">&lt;</a></li>
  
-         <li ${i==curpage?"class=active":"" }>
-           <a href="list.do?page=${i }">${i }</a>
+         <li v-for="i in range(startPage,endPage)" 
+             :class="i==curpage?'active':''">
+           <a class="link">{{i}}</a>
          </li>
   
-         <li><a href="list.do?page=${endPage+1 }">&gt;</a></li>
+         <li v-if="endPage<totalpage"><a class="link">&gt;</a></li>
        
      </ul>
     </div>
   </div>
-
+  <script>
+   let listApp=Vue.createApp({
+	   data(){
+		   return {
+			   curpage:1,
+			   totalpage:0,
+			   startPage:0,
+			   endPage:0,
+			   recipe_list:[]
+		   }
+	   },
+	   /*
+	      map.put("curpage", curpage);
+	      map.put("totalpage", totalpage);
+	      map.put("startPage", startPage);
+	      map.put("endPage", endPage);
+	      map.put("list", list);
+	   */
+	   mounted(){
+		 axios.get('list_vue.do',{
+			 params:{
+				 page:this.curpage
+			 }
+		 }).then(response=>{
+			 console.log(response.data)
+			 this.recipe_list=response.data.list
+			 this.curpage=response.data.curpage
+			 this.totalpage=response.data.totalpage
+			 this.startPage=response.data.startPage
+			 this.endPage=response.date.endPage
+		 })
+	   },
+	   methods:{
+		 range(start,end){
+			 let arr=[];
+			 let len=end-start
+			 for(let i=0;i<=len;i++)
+			 {
+				 arr[i]=start
+				 start++
+			 }
+			 return arr
+		 }
+	   }
+   }).mount(".container")
+  </script>
 </body>
 </html>

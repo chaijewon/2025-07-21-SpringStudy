@@ -71,13 +71,23 @@
       <h3>로그아웃되었습니다</h3>
     </div>
   </div>
+  <div class="row text-center" style="margin-top: 20px">
+   Start:<input type="text" class="input-sm" v-model="start"><br>
+   End:<input type="text" class="input-sm" v-model="end"><br>
+   <button type="button" class="btn-sm btn-warning">실행</button>
+   <ul class="pagination">
+    <li v-for="i in range(start,end)"><a href="#">{{i}}</a></li>
+   </ul>
+  </div>
  </div>
  <script>
   let a=Vue.createApp({
 	  data(){
 		  return {
 			  type:0,
-			  login:false
+			  login:false,
+			  start:0,
+			  end:0
 		  }
 	  },
 	  methods:{
@@ -89,6 +99,17 @@
 		  },
 		  logout(){
 			  this.login=false  
+		  },
+		  range(s,e){
+			  // 3 5 => 2
+			  let arr=[];
+			  let len=e-s;
+			  for(let i=0;i<=len;i++)
+			  {
+				  arr[i]=s;
+				  s++
+			  }
+			  return arr;
 		  }
 	  }
   }).mount(".container")

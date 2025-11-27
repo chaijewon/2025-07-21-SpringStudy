@@ -2,6 +2,9 @@ package com.sist.web;
 
 import java.util.*;
 
+import javax.management.relation.Role;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 // 화면 제어(X) => Front로 데이터 전송 
@@ -9,18 +12,45 @@ import org.springframework.web.bind.annotation.RestController;
 // => JSON을 자동으로 구현 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sist.service.RecipeService;
 import com.sist.vo.EmpVO;
+import com.sist.vo.RecipeVO;
 @RestController
 public class RestRecipeController {
-   @GetMapping(value="emp/list.do",produces = "text/plain;charset=UTF-8")
-   public String emp_list() throws Exception
+   @Autowired
+   private RecipeService service;
+   
+   @GetMapping(value="recipe/list_vue.do",
+		     produces = "text/plain;charset=UTF-8")
+   public String recipe_list_vue(int page) throws Exception
    {
-	   List<EmpVO> list=new ArrayList<EmpVO>();
-	   list.add(new EmpVO(1,"홍길동1","개발부"));
-	   list.add(new EmpVO(2,"홍길동2","개발부"));
-	   list.add(new EmpVO(3,"홍길동3","개발부"));
+	   int curpage=page;
+	   int rowSize=12;
+	   int start=(rowSize*curpage)-(rowSize-1);
+	   int end=rowSize*curpage;
+	   List<RecipeVO> list=service.recipeListData(start, end);
+	   int totalpage=service.recipeTotalPage();
+	   
+	   final int BLOCK=10;
+	   /*
+	    *    1 2 3 4 5 6 7 8 9 10 >
+	    */
+	   int startPage=((curpage-1)/BLOCK*BLOCK)+1;
+	   int endPage=((curpage-1)/BLOCK*BLOCK)+BLOCK;
+	   
+	   if(endPage>totalpage)
+		   endPage=totalpage;
+	   
+	   Map map=new HashMap();
+	   map.put("curpage", curpage);
+	   map.put("totalpage", totalpage);
+	   map.put("startPage", startPage);
+	   map.put("endPage", endPage);
+	   map.put("list", list);
+	   
 	   ObjectMapper mapper=new ObjectMapper();
-	   String json=mapper.writeValueAsString(list);
+	   String json=mapper.writeValueAsString(map);
+	   
 	   return json;
 	   
    }
