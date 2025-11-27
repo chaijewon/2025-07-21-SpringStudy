@@ -112,7 +112,7 @@ p {
 				 this.curpage=response.data.curpage
 				 this.totalpage=response.data.totalpage
 				 this.startPage=response.data.startPage
-				 this.endPage=response.date.endPage
+				 this.endPage=response.data.endPage
 			 })
 		 }
 	   }

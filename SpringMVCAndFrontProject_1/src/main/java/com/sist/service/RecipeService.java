@@ -1,6 +1,7 @@
 package com.sist.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.sist.vo.RecipeVO;
 // DAO여러개를 묶어서 사용이 가능 
@@ -8,4 +9,6 @@ import com.sist.vo.RecipeVO;
 public interface RecipeService {
 	public List<RecipeVO> recipeListData(int start,int end);
 	public int recipeTotalPage();
+	public List<RecipeVO> recipeFindData(Map map);
+	public int recipeFindTotalPage(Map map);
 }
