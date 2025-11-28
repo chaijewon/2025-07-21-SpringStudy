@@ -2,6 +2,7 @@ package com.sist.mapper;
 // SQL문장 저장 
 import java.util.*;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -37,4 +38,22 @@ public interface DataBoardMapper {
   public DataBoardVO databoardDetailData(int no);
   //4. 수정 => ? 
   //5. 삭제 (파일 제거)
+  @Select("SELECT filename,filesize,filecount "
+		 +"FROM springDataBoard "
+		 +"WHERE no=#{no}")
+  // 파일 정보 
+  public DataBoardVO databoardFileInfoData(int no);
+  
+  @Select("SELECT pwd FROM springDataBoard "
+		 +"WHERE no=#{no}")
+  public String databoardGetPassword(int no);
+  
+  @Delete("DELETE FROM springDataBoard "
+		 +"WHERE no=#{no}")
+  public void databoardDelete(int no);
+  
+  @Update("UPDATE springDataBoard SET "
+		 +"name=#{name},subject=#{subject},content=#{content} "
+		 +"WHERE no=#{no}")
+  public void databoardUpdate(DataBoardVO vo);
 }

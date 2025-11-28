@@ -9,4 +9,8 @@ public interface DataBoardService {
 	public void databoardInsert(DataBoardVO vo);
 	public int databoardRowCount();
 	public DataBoardVO databoardDetailData(int no);
+	public boolean databoardDelete(int no,String pwd);
+	public DataBoardVO databoardFileInfoData(int no);
+	public DataBoardVO databoardUpdataData(int no);
+	public boolean databoardUpdate(DataBoardVO vo);
 }

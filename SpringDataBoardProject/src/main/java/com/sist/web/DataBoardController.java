@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -169,5 +170,87 @@ public class DataBoardController {
     	   bos.close();
     	}catch(Exception ex){}
     }
-    
+    @GetMapping("databoard/delete.do")
+    public String databoard_delete(int no,Model model)
+    {
+    	model.addAttribute("no", no);
+    	return "databoard/delete";
+    }
+    @PostMapping(value="databoard/delete_ok.do",
+    		produces ="text/html;charset=UTF-8" )
+    @ResponseBody
+    // 화면이동 => HTML/JavaScript에 필요한 데이터를 전송 
+    // 단점 : 한글이 깨진다 
+    public String databoard_delete_ok(int no,String pwd)
+    {
+        String res="";	
+        DataBoardVO vo=dService.databoardFileInfoData(no);
+        boolean bCheck=dService.databoardDelete(no, pwd);
+        if(bCheck==true)
+        {
+        	res="<script>"
+        	   +"location.href=\"list.do\""
+        	   +"</script>";
+        	try
+        	{
+        		if(vo.getFilecount()>0)
+        		{
+        		   String path="c:\\upload";
+        		   StringTokenizer st=
+        				   new StringTokenizer(vo.getFilename(),",");
+        		   while(st.hasMoreTokens())
+        		   {
+        			   File file=new File(path+"\\"+st.nextToken());
+        			   file.delete();
+        		   }
+        		}
+        		
+        	}catch(Exception ex) {}
+        }
+        else
+        {
+        	res="<script>"
+        	   +"alert(\"비밀번호가 틀립니다!!\");"
+        	   +"history.back();"
+        	   +"</script>";
+        }
+        
+    	return res;
+    }
+    @GetMapping("databoard/update.do")
+    public String databoard_update(int no,Model model)
+    {
+    	// 이전 데이터를 읽어서 => update.jsp로 전송 
+    	DataBoardVO vo=dService.databoardUpdataData(no);
+    	model.addAttribute("vo", vo);
+    	return "databoard/update";
+    }
+    @PostMapping(value="databoard/update_ok.do",
+    		produces ="text/html;charset=UTF-8" )
+    @ResponseBody
+    public String databoard_update_ok(DataBoardVO vo)
+    {
+       String res="";
+       boolean bCheck=dService.databoardUpdate(vo);
+       if(bCheck==true)
+       {
+       	res="<script>"
+       	   +"location.href=\"detail.do?no="+vo.getNo()+"\""
+       	   +"</script>";
+       }
+       else
+       {
+       	res="<script>"
+       	   +"alert(\"비밀번호가 틀립니다!!\");"
+       	   +"history.back();"
+       	   +"</script>";
+       }
+       
+       return res;
+    }
 }
+
+
+
+
+
