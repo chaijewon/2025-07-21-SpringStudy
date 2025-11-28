@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.*;
 import com.sist.service.*;
 import com.sist.vo.*;
@@ -43,5 +46,41 @@ public class DataBoardController {
     public String databoard_insert()
     {
     	return "databoard/insert";
+    }
+    @PostMapping("databoard/insert_ok.do")
+    public String databoard_insert_ok(DataBoardVO vo)
+    {
+    	String path="c:\\upload";
+    	List<MultipartFile> list=vo.getFiles();
+    	if(list==null) // 파일이 없는 상태
+    	{
+    	    vo.setFilename("");
+    	    vo.setFilesize("");
+    	    vo.setFilecount(0);
+    	}
+    	else // 파일 올리기 
+    	{
+    		try
+    		{
+    			String filename="";
+    			String filesize="";
+    			for(MultipartFile mf:list)
+    			{
+    				String name=mf.getOriginalFilename();
+    				File file=new File(path+"\\"+name);
+    				mf.transferTo(file);
+    				filename+=file.getName()+",";
+    				filesize+=file.length()+",";
+    			}
+    			filename=filename.substring(0,filename.lastIndexOf(","));
+    			filesize=filesize.substring(0,filesize.lastIndexOf(","));
+    			vo.setFilename(filename);
+    			vo.setFilesize(filesize);
+    			vo.setFilecount(list.size());
+    		}catch(Exception ex) {}
+    		
+    	}
+    	dService.databoardInsert(vo);
+    	return "redirect:list.do";
     }
 }
