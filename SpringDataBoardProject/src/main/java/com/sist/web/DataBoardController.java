@@ -7,8 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
+import java.io.*;
+import java.net.URLEncoder;
 import java.util.*;
+
+import javax.servlet.http.HttpServletResponse;
+
 import com.sist.service.*;
 import com.sist.vo.*;
 @Controller
@@ -135,9 +139,35 @@ public class DataBoardController {
      */
     // download.do?fn=${f}
     @GetMapping("databoard/download.do")
-    public void databoard_download(String fn)
+    public void databoard_download(String fn,HttpServletResponse response)
     {
-    	
+    	try
+    	{
+    	   //1. 파일 정보 
+    	   String path="c:\\upload";
+    	   File file=new File(path+"\\"+fn);
+    	   //2. header전송 : 파일명 / 파일크기 => 다운로드창을 보여준다 
+    	   response.setHeader("Content-Disposition", "attachment;filename="
+    			     +URLEncoder.encode(fn,"UTF-8"));
+    	   response.setContentLength((int)file.length());
+    	   
+    	   //3. 다운로드
+    	   BufferedInputStream bis=
+    			   new BufferedInputStream(new FileInputStream(file));
+    	   BufferedOutputStream bos=
+    			   new BufferedOutputStream(response.getOutputStream());
+    	   
+    	   byte[] buffer=new byte[1024]; // 저장 
+    	   // TCP => 1024 / UDP => 512 
+    	   
+    	   int i=0; // 읽은 바이트 수 
+    	   while((i=bis.read(buffer, 0, 1024))!=-1)
+    	   {
+    		   bos.write(buffer, 0, i);
+    	   }
+    	   bis.close();
+    	   bos.close();
+    	}catch(Exception ex){}
     }
     
 }
