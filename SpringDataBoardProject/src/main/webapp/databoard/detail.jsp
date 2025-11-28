@@ -44,7 +44,7 @@
          <td colspan="3">
            <ul>
              <c:forEach var="f" items="${fList }" varStatus="s">
-              <li>${f }(${sList[s.index]})</li>
+              <li><a href="download.do?fn=${f}">${f }(${sList[s.index]}Bytes)</a></li>
              </c:forEach>
            </ul>
          </td>

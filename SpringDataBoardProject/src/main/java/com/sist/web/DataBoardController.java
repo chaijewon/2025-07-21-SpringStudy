@@ -116,5 +116,28 @@ public class DataBoardController {
     	model.addAttribute("vo", vo);
     	return "databoard/detail";
     }
+    /*
+     *   Spring => Model 제작 
+     *   --------------------
+     *   리턴형 : void / String
+     *                 | 파일 변경(화면 변경) 
+     *           |다운로드 (화면이동 / 화면 이동이 없는 경우)
+     *           
+     *   메소드 찾기 => URL주소을 이용한다 
+     *     |
+     *   매개변수 
+     *     => 사용자가 보내준 데이터 : 일반 데이터 / VO
+     *     => 데이터 전송이 있는 경우 : Model model
+     *     => Cookie / Session 
+     *                 | HttpSession session 
+     *         | request/response
+     *     => 필요한 데이터나 객체 => 매개변수를 통해서 가지고 온다 
+     */
+    // download.do?fn=${f}
+    @GetMapping("databoard/download.do")
+    public void databoard_download(String fn)
+    {
+    	
+    }
     
 }
