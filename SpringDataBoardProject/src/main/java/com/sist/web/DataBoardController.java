@@ -96,4 +96,25 @@ public class DataBoardController {
     	dService.databoardInsert(vo);
     	return "redirect:list.do";
     }
+    @GetMapping("databoard/detail.do")
+    public String databoard_detail(int no,Model model)
+    {
+    	// 오라클에서 데이터 읽기 
+    	DataBoardVO vo=dService.databoardDetailData(no);
+    	if(vo.getFilecount()>0)
+    	{
+    	  List<String> fList=new ArrayList<String>();
+    	  List<String> sList=new ArrayList<String>();
+    	  String[] f=vo.getFilename().split(",");
+    	  String[] s=vo.getFilesize().split(",");
+    	  fList=Arrays.asList(f);
+    	  sList=Arrays.asList(s);
+    	  
+    	  model.addAttribute("fList", fList);
+    	  model.addAttribute("sList", sList);
+    	}
+    	model.addAttribute("vo", vo);
+    	return "databoard/detail";
+    }
+    
 }

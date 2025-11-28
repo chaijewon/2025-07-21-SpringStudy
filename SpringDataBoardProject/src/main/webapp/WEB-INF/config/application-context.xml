@@ -98,6 +98,14 @@
         @ResponseBody : 자바스크립트로 JSON전송 
         => @RestController 변경
       -->
+     <mvc:interceptors>
+       <mvc:interceptor>
+         <mvc:mapping path="/databoard/list.do"/>
+         <bean id="databoardInterceptor"
+           class="com.sist.intercepter.DataBoardInterceptor"
+         />
+       </mvc:interceptor>
+     </mvc:interceptors>
      <!-- 
            스프링 
              |
