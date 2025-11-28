@@ -8,4 +8,5 @@ public interface DataBoardService {
 	public List<DataBoardVO> databoardListData(int start);
 	public void databoardInsert(DataBoardVO vo);
 	public int databoardRowCount();
+	public DataBoardVO databoardDetailData(int no);
 }

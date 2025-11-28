@@ -66,8 +66,21 @@ public class DataBoardController {
     			String filesize="";
     			for(MultipartFile mf:list)
     			{
-    				String name=mf.getOriginalFilename();
-    				File file=new File(path+"\\"+name);
+    				String oname=mf.getOriginalFilename();
+    				File file=new File(path+"\\"+oname);
+    				// 파일 중복 
+    				if(file.exists())
+    				{
+    				   String name=oname.substring(0,oname.lastIndexOf("."));
+    				   String ext=oname.substring(oname.lastIndexOf("."));
+    				   int count=1;
+    				   while(file.exists())
+    				   {
+    					   String newName=name+"("+count+")"+ext;
+    					   file=new File(path+"\\"+newName);
+    					   count++;
+    				   }
+    				}
     				mf.transferTo(file);
     				filename+=file.getName()+",";
     				filesize+=file.length()+",";

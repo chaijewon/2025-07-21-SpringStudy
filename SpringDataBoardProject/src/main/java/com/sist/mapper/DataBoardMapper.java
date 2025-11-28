@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.*;
 public interface DataBoardMapper {
@@ -24,6 +25,16 @@ public interface DataBoardMapper {
 		 +"#{filesize},#{filecount})")
   public void databoardInsert(DataBoardVO vo); // => 업로드 
   //3. 상세보기 (다운로드)
+  @Update("UPDATE springDataBoard SET "
+		 +"hit=hit+1 "
+		 +"WHERE no=#{no}")
+  public void hitIncrement(int no);
+  @Select("SELECT no,name,subject,content,hit,"
+  		+ "filename,filesize,filecount,"
+		+ "TO_CHAR(regdate,'yyyy-mm-dd hh24:mi:ss') as dbday "
+  		+ "FROM springDataBoard "
+		+ "WHERE no=#{no}")
+  public DataBoardVO databoardDetailData(int no);
   //4. 수정 => ? 
   //5. 삭제 (파일 제거)
 }

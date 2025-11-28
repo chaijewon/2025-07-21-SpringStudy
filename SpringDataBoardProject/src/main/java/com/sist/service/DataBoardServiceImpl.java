@@ -27,4 +27,10 @@ public class DataBoardServiceImpl implements DataBoardService{
 		// TODO Auto-generated method stub
 		return dao.databoardRowCount();
 	}
+
+	@Override
+	public DataBoardVO databoardDetailData(int no) {
+		// TODO Auto-generated method stub
+		return dao.databoardDetailData(no);
+	}
 }
