@@ -15,6 +15,14 @@
     <ul class="nav navbar-nav">
       <li class="active"><a href="#">Home</a></li>
       <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">맛집
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="../food/find.do">맛집 검색</a></li>
+          <li><a href="#">맛집 추천</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">상품
         <span class="caret"></span></a>
         <ul class="dropdown-menu">

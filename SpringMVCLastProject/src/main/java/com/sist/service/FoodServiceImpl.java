@@ -34,4 +34,17 @@ public class FoodServiceImpl implements FoodService{
 		return fDao.foodCookieData(fno);
 	}
 
+	@Override
+	public List<FoodVO> foodFindData(Map map) {
+		// TODO Auto-generated method stub
+		return fDao.foodFindData(map);
+	}
+
+	@Override
+	public int foodFindTotalPage(String address) {
+		// TODO Auto-generated method stub
+		return fDao.foodFindTotalPage(address);
+	}
+
 }
+

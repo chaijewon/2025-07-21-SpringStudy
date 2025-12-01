@@ -30,4 +30,10 @@ public class FoodController {
 	   model.addAttribute("main_jsp", "../food/detail.jsp");
 	   return "main/main";
    }
+   @GetMapping("food/find.do")
+   public String food_find(Model model)
+   {
+	  model.addAttribute("main_jsp", "../food/find.jsp");
+	  return "main/main";   
+   }
 }
