@@ -8,6 +8,21 @@ import java.util.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.*;
 import com.sist.vo.*;
+/*
+ *    DAO : 데이터베이스만 연동  
+ *    VO  : 데이터베이스에 있는 값을 받아서 브라우저 전송시 데이터를 묶어서 전송 
+ *    Service : DAO여러개를 묶어서 한번에 처리 
+ *              => 기타 처리 
+ *              => 비밀번호 암호화 / 복화화 
+ *              => 비밀번호 확인 
+ *    Controller => JSP를 제어 
+ *                  => forward / redirect : 파일 변경 
+ *                  => front : router
+ *    RestController => 자바스크립트 연동 : JSON / 문자열 
+ *    ----------------------------------------------
+ *      서버로서의 역할만 수행 
+ *      ----------------- Spring Boot 
+ */
 // 실제 데이터 전송 
 @RestController 
 public class FoodRestController {
@@ -60,6 +75,7 @@ public class FoodRestController {
 		   ObjectMapper mapper=
 				   new ObjectMapper();
 		   result=mapper.writeValueAsString(vo);
+		   // jackson : 객체변환 객체 = JSON => Boot에는 탑재  
 	   }catch(Exception ex) {}
 	   return result;
    }
