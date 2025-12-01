@@ -3,6 +3,7 @@ import java.util.*;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.*;
 public interface FoodMapper {
@@ -16,4 +17,16 @@ public interface FoodMapper {
   
   @Select("SELECT CEIL(COUNT(*)/12.0) FROM menupan_food")
   public int foodTotalPage();
+  
+  // 상세보기 
+  @Update("UPDATE menupan_food SET "
+		 +"hit=hit+1 "
+		 +"WHERE fno=#{fno}")
+  public void foodHitIncrement(int fno);
+  
+  @Select("SELECT fno,name,poster,images,address,phone,"
+		 +"parking,time,type,score,theme,content,price "
+		 +"FROM menupan_food "
+		 +"WHERE fno=#{fno}")
+  public FoodVO foodDetailData(int fno);
 }

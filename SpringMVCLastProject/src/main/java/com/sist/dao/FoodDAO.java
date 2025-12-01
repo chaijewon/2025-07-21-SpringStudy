@@ -3,6 +3,7 @@ import java.util.*;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -33,5 +34,24 @@ public class FoodDAO {
    public int foodTotalPage()
    {
 	   return mapper.foodTotalPage();
+   }
+   
+   /*
+    *   // 상세보기 
+	  @Update("UPDATE menupan_food SET "
+			 +"hit=hit+1 "
+			 +"WHERE fno=#{fno}")
+	  public void foodHitIncrement(int fno);
+	  
+	  @Select("SELECT fno,name,poster,images,address,phone,"
+			 +"parking,time,type,score,theme,content,price "
+			 +"FROM menupan_food "
+			 +"WHERE fno=#{fno}")
+	  public FoodVO foodDetailData(int fno);
+    */
+   public FoodVO foodDetailData(int fno)
+   {
+	   mapper.foodHitIncrement(fno);
+	   return mapper.foodDetailData(fno);
    }
 }

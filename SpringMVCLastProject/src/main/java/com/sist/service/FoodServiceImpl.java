@@ -22,4 +22,10 @@ public class FoodServiceImpl implements FoodService{
 		return fDao.foodTotalPage();
 	}
 
+	@Override
+	public FoodVO foodDetailData(int fno) {
+		// TODO Auto-generated method stub
+		return fDao.foodDetailData(fno);
+	}
+
 }

@@ -49,6 +49,20 @@ public class FoodRestController {
 	   }catch(Exception ex){}
 	   return result;
    }
+   @GetMapping(value="food/detail_vue.do",
+		      produces = "text/plain;charset=UTF-8")
+   public String food_detail_vue(int fno)
+   {
+	   String result="";
+	   FoodVO vo=fService.foodDetailData(fno);
+	   try
+	   {
+		   ObjectMapper mapper=
+				   new ObjectMapper();
+		   result=mapper.writeValueAsString(vo);
+	   }catch(Exception ex) {}
+	   return result;
+   }
    
 }
 
