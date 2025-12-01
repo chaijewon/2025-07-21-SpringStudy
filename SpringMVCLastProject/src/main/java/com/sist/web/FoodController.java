@@ -1,5 +1,9 @@
 package com.sist.web;
 
-public class FoodController {
+import org.springframework.stereotype.Controller;
 
+// router
+@Controller
+public class FoodController {
+   
 }
