@@ -54,4 +54,8 @@ public class FoodDAO {
 	   mapper.foodHitIncrement(fno);
 	   return mapper.foodDetailData(fno);
    }
+   public FoodVO foodCookieData(int fno)
+   {
+	   return mapper.foodDetailData(fno);
+   }
 }

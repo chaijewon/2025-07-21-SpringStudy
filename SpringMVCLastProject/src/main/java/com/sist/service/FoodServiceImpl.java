@@ -28,4 +28,10 @@ public class FoodServiceImpl implements FoodService{
 		return fDao.foodDetailData(fno);
 	}
 
+	@Override
+	public FoodVO foodCookieData(int fno) {
+		// TODO Auto-generated method stub
+		return fDao.foodCookieData(fno);
+	}
+
 }
