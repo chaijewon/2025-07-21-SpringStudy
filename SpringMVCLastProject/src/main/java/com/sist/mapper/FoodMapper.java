@@ -25,7 +25,7 @@ public interface FoodMapper {
   public void foodHitIncrement(int fno);
   
   @Select("SELECT fno,name,poster,images,address,phone,"
-		 +"parking,time,type,score,theme,content,price "
+		 +"parking,time,type,score,theme,content,price,likecount "
 		 +"FROM menupan_food "
 		 +"WHERE fno=#{fno}")
   public FoodVO foodDetailData(int fno);

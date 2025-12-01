@@ -68,7 +68,7 @@
    <div class="row">
     <table class="table">
      <tr>
-       <td width=30% class="text-center" rowspan="8">
+       <td width=30% class="text-center" rowspan="9">
          <img :src="vo.poster" style="width:100%">
        </td>
        <td colspan="2">
@@ -102,6 +102,10 @@
      <tr>
        <td width=15% style="color:gray">테마</td>
        <td width=55%>{{vo.theme}}</td>
+     </tr>
+     <tr>
+       <td width=15% style="color:gray">좋아요</td>
+       <td width=55%>{{like}}</td>
      </tr>
     </table>
     <table class="table">
@@ -151,6 +155,12 @@
     				this.addScript()
     			}
     		})
+    	},
+    	computed:{
+    	   like(){
+    		   return parseInt(this.vo.likecount).toLocaleString()
+    	   }
+    	   
     	},
     	methods:{
     		addScript(){
