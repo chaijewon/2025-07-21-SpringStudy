@@ -1,6 +1,7 @@
 package com.sist.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
@@ -25,6 +26,7 @@ import com.sist.vo.*;
  */
 // 실제 데이터 전송 
 @RestController 
+@CrossOrigin(origins = "*") // vue:8081 / react:3000
 public class FoodRestController {
    // 스프링에 등록된 클래스중에 필요한 클래스 가지고 오기 @Autowired
    @Autowired

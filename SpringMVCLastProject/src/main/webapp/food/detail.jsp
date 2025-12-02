@@ -184,7 +184,7 @@
     		var geocoder = new kakao.maps.services.Geocoder();
 
     		// 주소로 좌표를 검색합니다
-    		geocoder.addressSearch(this.vo.address, function(result, status) {
+    		geocoder.addressSearch(this.vo.address, (result, status)=> {
 
     		    // 정상적으로 검색이 완료됐으면 
     		     if (status === kakao.maps.services.Status.OK) {
@@ -199,7 +199,7 @@
 
     		        // 인포윈도우로 장소에 대한 설명을 표시합니다
     		        var infowindow = new kakao.maps.InfoWindow({
-    		            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+$('#name').text()+'</div>'
+    		            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+this.vo.name+'</div>'
     		        });
     		        infowindow.open(map, marker);
 
