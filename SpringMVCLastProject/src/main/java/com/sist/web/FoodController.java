@@ -38,7 +38,7 @@ public class FoodController {
 	      {
 	    	  for(int i=0;i<cookies.length;i++)
 	    	  {
-	    		  if(cookies[i].equals("food_"+fno))
+	    		  if(cookies[i].getName().equals("food_"+fno))
 	    		  {
 	    			  cookies[i].setPath("/");
 	    			  cookies[i].setMaxAge(0);

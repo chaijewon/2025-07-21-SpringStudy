@@ -26,7 +26,7 @@
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">상품
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="#">전체 상품</a></li>
+          <li><a href="../goods/list.do">전체 상품</a></li>
           <li><a href="#">베스트 상품</a></li>
           <li><a href="#">특가 상품</a></li>
           <li><a href="#">신상품</a></li>
