@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="../js/pagecard.js"></script>
 <style type="text/css">
+.container-fluid{
+  width: 100%
+}
 .row {
   margin: 0px auto;
   width: 100%;
@@ -18,6 +21,9 @@ p{
 }
 .a-link{
   cursor: pointer;
+}
+button[type="button"]{
+  margin-left: 5px
 }
 </style>
 </head>
@@ -32,8 +38,8 @@ p{
          <button class="btn-lg btn-success" type=button @click="select('분식')">분식</button>
        </div>
      </div>
-     <div class="row" style="margin-top: 20px">
-       <div class="col-sm-8">
+     <!-- <div class="row" style="margin-top: 20px"> -->
+       <div class="col-sm-7" style="margin-top: 20px">
          <div class="col-md-3" v-for="vo in list">
 		    <div class="thumbnail">
 		      <a class="a-link" @click="detailData(vo.fno)">
@@ -48,10 +54,10 @@ p{
 		      <pagecard></pagecard>
 		 </div>
        </div>
-       <div class="col-sm-4" v-show="isShow">
+       <div class="col-sm-5" v-show="isShow">
          <fooddetail v-bind:detail="detail"></fooddetail>
        </div>
-     </div>
+     <!-- </div> -->
    </div>
    <script>
     const fooddetail={
@@ -59,9 +65,10 @@ p{
     		template:
     			` 
     			 <table class="table">
+                  <tbody>
 			     <tr>
 			       <td width=30% class="text-center" rowspan="9">
-			         <img :src="detail.poster" style="width:100%">
+			         <img :src="detail.poster" style="width:250px;height:350px">
 			       </td>
 			       <td colspan="2">
 			         <h3><span id="name">{{detail.name}}</span>&nbsp;<span style="color:orange">{{detail.score}}</span></h3>
@@ -100,6 +107,7 @@ p{
 			      <tr>
 			        <td>{{detail.content}}</td>
 			      </tr>
+			      </tbody>
 			    </table>
     			`
     }
@@ -122,6 +130,20 @@ p{
     		this.dataRecv()
     	},
     	methods:{
+    		detailData(fno){
+    			this.isShow=true
+    			// ?fno=1
+    			axios.get('../food/detail_vue.do',{
+    				params:{
+    					fno:fno
+    				}
+    			}).then(res=>{
+    				this.detail=res.data
+    			}).catch(error=>{
+    				console.log(error.response)
+    			})
+    		},
+
     		// 사용자 정의 함수 = 자동호출이 블가능 
     		dataRecv(){
     			axios.get('http://localhost:8080/web/food/type_vue.do',{
@@ -162,6 +184,7 @@ p{
              },
              select(type)
              {
+            	 this.isShow=false
             	 this.type=type
             	 this.curpage=1
             	 this.dataRecv()
