@@ -1,6 +1,7 @@
 package com.sist.mapper;
 import java.util.*;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -10,6 +11,7 @@ import com.sist.vo.*;
 // => RestFul : @GetMapping @PostMapping @PutMapping @DeleteMapping
 //              => SELECT    => INSERT    => UPDATE   => DELETE
 // <> &lt  &gt
+
 public interface BoardMapper {
   @Select("SELECT no,subject,name,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,num "
 		 +"FROM (SELECT no,subject,name,regdate,hit,rownum as num "
@@ -20,4 +22,9 @@ public interface BoardMapper {
 		  @Param("end") int end);
   @Select("SELECT COUNT(*) FROM springBoard")
   public int boardRowCount();
+  
+  @Insert("INSERT INTO springBoard VALUES("
+		 +"sb_no_seq.nextval,"
+		 +"#{name},#{subject},#{content},#{pwd},SYSDATE,0)")
+  public void boardInsert(BoardVO vo);
 }

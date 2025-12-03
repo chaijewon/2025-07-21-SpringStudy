@@ -17,4 +17,5 @@ public interface FoodService {
 	   public List<FoodVO> foodTypeData(Map map);
 	   public int foodTypeTotalPage(String type);
 	   
+	   
 }

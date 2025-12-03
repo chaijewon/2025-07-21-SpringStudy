@@ -22,4 +22,10 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return bDao.boardRowCount();
 	}
+
+	@Override
+	public void boardInsert(BoardVO vo) {
+		// TODO Auto-generated method stub
+		bDao.boardInsert(vo);
+	}
 }

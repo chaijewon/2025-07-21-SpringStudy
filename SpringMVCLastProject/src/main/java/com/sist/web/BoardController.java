@@ -12,4 +12,10 @@ public class BoardController {
 	   model.addAttribute("main_jsp", "../board/list.jsp");
 	   return "main/main";
    }
+   @GetMapping("board/insert.do")
+   public String board_insert(Model model)
+   {
+	   model.addAttribute("main_jsp", "../board/insert.jsp");
+	   return "main/main";
+   }
 }

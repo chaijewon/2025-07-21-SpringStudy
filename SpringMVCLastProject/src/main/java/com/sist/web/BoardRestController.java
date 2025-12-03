@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
 import com.sist.service.*;
@@ -41,6 +43,22 @@ public class BoardRestController {
 		   
 	   }catch(Exception ex)
 	   {
+		   return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+	   }
+	   return new ResponseEntity<>(map,HttpStatus.OK);
+   }
+   
+   @PostMapping("board/insert_vue.do")
+   public ResponseEntity<Map> board_insert(@RequestBody BoardVO vo)
+   {
+	   Map map=new HashMap();
+	   try
+	   {
+		   bService.boardInsert(vo);
+		   map.put("msg", "yes");   
+	   }catch(Exception ex)
+	   {
+		   map.put("msg", "no");
 		   return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
 	   }
 	   return new ResponseEntity<>(map,HttpStatus.OK);
