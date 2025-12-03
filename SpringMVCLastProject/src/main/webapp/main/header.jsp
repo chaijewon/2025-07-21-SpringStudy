@@ -19,7 +19,7 @@
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="../food/find.do">맛집 검색</a></li>
-          <li><a href="#">맛집 추천</a></li>
+          <li><a href="../food/type.do">음식별 검색</a></li>
         </ul>
       </li>
       <li class="dropdown">

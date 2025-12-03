@@ -20,4 +20,6 @@ public class GoodsController {
 	   model.addAttribute("main_jsp", "../goods/detail.jsp");
 	   return "main/main";
    }
+   
+   
 }
