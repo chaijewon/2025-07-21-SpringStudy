@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="../goods/pagecard.js"></script>
+<script src="../js/pagecard.js"></script>
 <style type="text/css">
 .row {
   margin: 0px auto;
@@ -26,7 +26,7 @@ p{
     <div class="row">
       <div class="col-md-3" v-for="vo in list">
 		    <div class="thumbnail">
-		      <a href="#">
+		      <a :href="'../goods/detail.do?no='+vo.no">
 		        <img :src="vo.goods_poster" style="width:240px;height: 160px">
 		        <div class="caption">
 		          <p>{{vo.goods_name}}</p>

@@ -1,6 +1,7 @@
 package com.sist.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
@@ -14,6 +15,7 @@ import com.sist.vo.*;
 // @GetMapping(SELECT) / @PostMapping(INSERT) / @PutMapping(UPDATE) / @DeleteMapping(DELETE)
 // => web : @GetMapping(SELECT) / @PostMapping(INSERT)
 // @RequestMapping (통합) => Spring 6 => 제거 
+@CrossOrigin(origins = "*")
 public class GoodsRestController {
    @Autowired
    private GoodsService gService;
@@ -55,6 +57,25 @@ public class GoodsRestController {
 	   
 	   return json;
 	   
+   }
+   @GetMapping(value="goods/detail_vue.do",
+		   produces = "text/plain;charset=UTF-8")
+   public String goods_detail(int no)
+   {
+	   GoodsVO vo=gService.goodsDetailData(no);
+	   String strPrice=vo.getGoods_price();
+	   strPrice=strPrice.replaceAll("[^0-9]", "");
+	   vo.setPrice(Integer.parseInt(strPrice));
+	   
+	   String json="";
+	   
+	   try
+	   {
+		   ObjectMapper mapper=new ObjectMapper();
+		   json=mapper.writeValueAsString(vo);
+	   }catch(Exception ex){}
+	   
+	   return json;
    }
    
 }
