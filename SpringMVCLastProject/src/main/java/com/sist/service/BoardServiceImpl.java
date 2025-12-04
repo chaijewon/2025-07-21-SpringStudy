@@ -41,4 +41,17 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return bDao.boardDetailData(no);
 	}
+
+	@Override
+	public String boardDelete(int no, String pwd) {
+		// TODO Auto-generated method stub
+		String result="no";
+		String db_pwd=bDao.boardGetPassword(no);
+		if(db_pwd.equals(pwd))
+		{
+			result="yes";
+			bDao.boardDelete(no);
+		}
+		return result;
+	}
 }

@@ -8,4 +8,5 @@ public interface BoardService {
 	public int boardRowCount(); 
 	public void boardInsert(BoardVO vo);
 	public BoardVO boardDetailData(int no);
+	public String boardDelete(int no,String pwd);
 }

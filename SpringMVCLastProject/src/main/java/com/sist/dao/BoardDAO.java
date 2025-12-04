@@ -1,5 +1,6 @@
 package com.sist.dao;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -66,5 +67,20 @@ public class BoardDAO {
    public BoardVO boardDetailData(int no) {
 	   mapper.boardHitIncrement(no);
 	   return mapper.boardDetailData(no);
+   }
+   /*
+    *  @Select("SELECT pwd FROM springBoard WHERE no=#{no}")
+	  public String boardGetPassword(int no);
+	  
+	  @Delete("DELETE FROM springBoard WHERE no=#{no}")
+	  public void boardDelete(int no);
+    */
+   public String boardGetPassword(int no)
+   {
+	   return mapper.boardGetPassword(no);
+   }
+   public void boardDelete(int no)
+   {
+	   mapper.boardDelete(no);
    }
 }
