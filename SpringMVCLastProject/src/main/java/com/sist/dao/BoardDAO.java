@@ -3,6 +3,7 @@ package com.sist.dao;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.*;
@@ -49,5 +50,21 @@ public class BoardDAO {
    public void boardInsert(BoardVO vo)
    {
 	   mapper.boardInsert(vo);
+   }
+   /*
+    *   @Update("UPDATE springBoard SET "
+		 +"hit=hit+1 "
+		 +"WHERE no=#{no}")
+  public void boardHitIncrement(int no);
+  @Select("SELECT no,name,subject,content,hit,"
+		 +"TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday "
+		 +"FROM springBoard "
+		 +"WHERE no=#{no}")
+  public BoardVO boardDetailData(int no);
+  
+    */
+   public BoardVO boardDetailData(int no) {
+	   mapper.boardHitIncrement(no);
+	   return mapper.boardDetailData(no);
    }
 }

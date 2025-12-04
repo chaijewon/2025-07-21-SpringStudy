@@ -63,4 +63,19 @@ public class BoardRestController {
 	   }
 	   return new ResponseEntity<>(map,HttpStatus.OK);
    }
+   
+   // 수정 / 삭제 
+   @GetMapping("board/detail_vue.do")
+   public ResponseEntity<BoardVO> board_update(int no)
+   {
+	   BoardVO vo=new BoardVO();
+	   try
+	   {
+		   vo=bService.boardDetailData(no);
+	   }catch(Exception ex)
+	   {
+		   return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+	   }
+	   return new ResponseEntity<>(vo,HttpStatus.OK);
+   }
 }
