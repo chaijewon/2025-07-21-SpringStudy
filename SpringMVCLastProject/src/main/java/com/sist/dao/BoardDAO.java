@@ -83,4 +83,22 @@ public class BoardDAO {
    {
 	   mapper.boardDelete(no);
    }
+   /*
+    *   @Update("UPDATE springBoard SET "
+		 +"name=#{name},subject=#{subject},content=#{content} "
+		 +"WHERE no=#{no}")
+	  public void boardUpdate(BoardVO vo);
+	  
+	  @Select("SELECT no,name,subject,content "
+				 +"FROM springBoard "
+				 +"WHERE no=#{no}")
+	  public BoardVO boardUpdateData(int no);
+    */
+   public void boardUpdate(BoardVO vo) {
+	   mapper.boardUpdate(vo);
+   }
+   public BoardVO boardUpdateData(int no)
+   {
+	   return mapper.boardUpdateData(no);
+   }
 }

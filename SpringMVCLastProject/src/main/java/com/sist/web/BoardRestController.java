@@ -67,7 +67,7 @@ public class BoardRestController {
    
    // 수정 / 삭제 
    @GetMapping("board/detail_vue.do")
-   public ResponseEntity<BoardVO> board_update(int no)
+   public ResponseEntity<BoardVO> board_detail(int no)
    {
 	   BoardVO vo=new BoardVO();
 	   try
@@ -88,6 +88,22 @@ public class BoardRestController {
 		   // DB연동 
 		   String res=bService.boardDelete(no, pwd);
 		   map.put("msg", res);
+	   }catch(Exception ex)
+	   {
+		   return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+	   }
+	   return new ResponseEntity<>(map,HttpStatus.OK);
+   }
+   @GetMapping("board/update_vue.do")
+   public ResponseEntity<Map> board_update(int no)
+   {
+	   Map map=new HashMap();
+	   try
+	   {
+		   BoardVO vo=bService.boardUpdateData(no);
+		   map.put("name", vo.getName());
+		   map.put("subject",vo.getSubject());
+		   map.put("content", vo.getContent());
 	   }catch(Exception ex)
 	   {
 		   return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);

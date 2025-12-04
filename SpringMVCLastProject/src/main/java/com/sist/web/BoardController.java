@@ -201,8 +201,9 @@ public class BoardController {
 	   return "main/main";
    }
    @GetMapping("board/update.do")
-   public String board_update(Model model)
+   public String board_update(int no,Model model)
    {
+	   model.addAttribute("no", no);
 	   model.addAttribute("main_jsp", "../board/update.jsp");
 	   return "main/main";
    }

@@ -54,4 +54,23 @@ public class BoardServiceImpl implements BoardService{
 		}
 		return result;
 	}
+
+	@Override
+	public String boardUpdate(BoardVO vo) {
+		// TODO Auto-generated method stub
+		String result="no";
+		String db_pwd=bDao.boardGetPassword(vo.getNo());
+		if(db_pwd.equals(vo.getPwd()))
+		{
+			result="yes";
+			bDao.boardUpdate(vo);
+		}
+		return result;
+	}
+
+	@Override
+	public BoardVO boardUpdateData(int no) {
+		// TODO Auto-generated method stub
+		return bDao.boardUpdateData(no);
+	}
 }
