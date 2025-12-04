@@ -1,5 +1,67 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%--
+        Vue 
+         패턴 : MVVM기반으로 제작된 프레임워크 
+               프레임워크 VS 라이브러리 
+                 |           |
+                레고         완성품 
+         Model : 데이터 관리 => data(){} 
+         View : mount에 소속된 HTML 
+                <template>
+         ViewModel : 요청 처리 => Model에 있는 데이터 값 변경 
+                                     | 값 변경시마다 
+                                     | View 전송 
+        1. Vue 객체 생성 
+           Vue.createApp({})
+        2. Vue에서 HTML을 제어하는 데이터를 정의 
+           data()
+           {
+              return {
+                 변수 설정 
+                 정수 
+                 no:0,
+                 실수
+                 num:0.0
+                 ***문자 
+                 str:'' , str:""
+                 ***배열 => List 
+                 arr:[],
+                 ***객체 => VO
+                 vo:{}
+                 bool
+                 isShow:true
+              }
+           }
+           ---------------------------- Model 
+           created(){}  => Vue객체 생성이 완료시에 자동 호출 
+               |
+           mounted(){}  => HTML이 브라우저에서 실행이 된 상태 
+               |        => window.onload=function()
+                        => $(function(){})
+                        ** 시작과 동시에 서버에 데이터 읽기 
+                        ** 다른 프레임워크 연동 
+                        ** Jquery / React / AngularJS
+           updated(){}  => data()안에 있는 데이터값이 갱싱되면 호출 
+               |
+           unmounted(){} => 화면 변경된 경우 => Vue객체 소멸
+           
+           => 반응형 시스템 
+           => mount => 가상메모리에 HTML 저장해 둔다 
+                       -------
+                         | => 비교 다른 점만 변경 (가상돔)
+                       실제 메모리 : 브라우저 읽어가는 메모리  
+           => 속도가 빠르다 (String , StringBuffer)
+                                   => 시리얼라이즈
+         -----------------------------------------
+         컴포넌트 기반 
+         ------
+           UI를 재사용할 수 있게 만든 독립적인 블록 
+           -> data , props, methods 
+           -> 기능별로 나눠서 저장 => 필요시에 재사용 
+           -> pagecard 
+           
+ --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -127,11 +189,13 @@
  
               if(res.data.msg==='yes')
               {
-                location.href='../board/list.do'
+                location.href='../board/detail.do?no='+this.no
               }
               else
               {
                 alert("수정에 실패하셨습니다!!")
+                this.pwd=''
+                this.$refs.pwd.focus()
               }
           })
        }
